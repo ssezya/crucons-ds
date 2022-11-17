@@ -8,9 +8,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{0BF4D147-0
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{BC482F5B-90BC-4F9B-8CD5-FE3D46339EED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{DFC796B7-FCBE-4133-BF31-6820829A0CC3}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFC796B7-FCBE-4133-BF31-6820829A0CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC796B7-FCBE-4133-BF31-6820829A0CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC796B7-FCBE-4133-BF31-6820829A0CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC796B7-FCBE-4133-BF31-6820829A0CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFC796B7-FCBE-4133-BF31-6820829A0CC3} = {BC482F5B-90BC-4F9B-8CD5-FE3D46339EED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E2615450-87F5-42CF-95F1-EE4EF654399C}
