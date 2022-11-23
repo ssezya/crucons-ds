@@ -7,6 +7,10 @@ namespace Infrastructure.Interfaces.DataAccess
     {
         DbSet<User> Users { get; }
 
-        DbSet<Error> Errors { get; }
+        DbSet<Task> Tasks { get; }
+
+        DbSet<Job> Jobs { get; }
+
+        DbSet<Status> Statuses { get; }
     }
 }

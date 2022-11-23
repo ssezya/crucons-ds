@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Entities.Models;
 using Infrastructure.Interfaces.DataAccess;
 
@@ -13,6 +14,15 @@ namespace DataAccess.PgSql
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Error> Errors { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+
+        public DbSet<Job> Jobs { get; set; }
+
+        public DbSet<Status> Statuses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }

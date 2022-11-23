@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Entities.Base;
 
 namespace Entities.Models
 {
-    public class User : BaseEntity
+    public class Status : BaseEntity
     {
-        public DateTime CreatedAt { get; set; }
+        public string Name { get; set; }
 
-        public string Email { get; set; }
+        public string ActionName { get; set; }
 
         public ICollection<Task> Tasks { get; private set; } = new HashSet<Task>();
 
