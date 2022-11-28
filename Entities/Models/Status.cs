@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using Entities.Base;
 
 namespace Entities.Models
 {
-    public class Status : BaseEntity
+    public class Status
     {
+        public int StatusId { get; set; }
         public string Name { get; set; }
-
         public string ActionName { get; set; }
 
-        public ICollection<Task> Tasks { get; private set; } = new HashSet<Task>();
-
+        public ICollection<Issue> Issues { get; private set; } = new HashSet<Issue>();
         public ICollection<Job> Jobs { get; private set; } = new HashSet<Job>();
     }
 }

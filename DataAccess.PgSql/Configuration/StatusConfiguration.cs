@@ -11,8 +11,8 @@ namespace DataAccess.PgSql.Configuration
             builder.ToTable("statuses");
 
             #region <Properties>
-            builder.Property(p => p.Id)
-                .HasColumnName("id");
+            builder.Property(p => p.StatusId)
+                .HasColumnName("status_id");
 
             builder.Property(p => p.Name)
                 .HasColumnName("name")
@@ -26,7 +26,7 @@ namespace DataAccess.PgSql.Configuration
             #endregion
 
             #region <Relations>
-            builder.HasMany(s => s.Tasks)
+            builder.HasMany(s => s.Issues)
                 .WithOne(t => t.Status)
                 .OnDelete(DeleteBehavior.NoAction);
 
