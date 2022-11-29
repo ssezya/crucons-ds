@@ -6,7 +6,7 @@ namespace Entities.Models
     {
         public int JobId { get; set; }
         public string Description { get; set; }
-        public int TaskId { get; set; }
+        public int IssueId { get; set; }
         public int ActionId { get; set; }
 
         public Issue Issue { get; set; }

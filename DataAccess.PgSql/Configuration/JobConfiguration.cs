@@ -19,15 +19,14 @@ namespace DataAccess.PgSql.Configuration
                 .IsRequired();
 
             builder.Property(p => p.LastModifiedAt)
-                .HasColumnName("last_modified_at")
-                .IsRequired();
+                .HasColumnName("last_modified_at");
 
             builder.Property(p => p.Description)
                 .HasColumnName("description")
                 .IsRequired();
 
-            builder.Property(p => p.TaskId)
-                .HasColumnName("task_id")
+            builder.Property(p => p.IssueId)
+                .HasColumnName("issue_id")
                 .IsRequired();
 
             builder.Property(p => p.ActionId)

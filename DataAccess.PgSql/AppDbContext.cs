@@ -15,9 +15,7 @@ namespace DataAccess.PgSql
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Issue> Issues { get; set; }
-
         public DbSet<Job> Jobs { get; set; }
-
         public DbSet<Status> Statuses { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -19,8 +19,7 @@ namespace DataAccess.PgSql.Configuration
                 .IsRequired();
 
             builder.Property(p => p.LastModifiedAt)
-                .HasColumnName("last_modified_at")
-                .IsRequired();
+                .HasColumnName("last_modified_at");
 
             builder.Property(p => p.Name)
                 .HasColumnName("name")
@@ -32,6 +31,7 @@ namespace DataAccess.PgSql.Configuration
 
             builder.Property(p => p.StatusId)
                 .HasColumnName("status_id")
+                .HasDefaultValue(1)
                 .IsRequired();
             #endregion
 
