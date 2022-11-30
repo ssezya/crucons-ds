@@ -20,13 +20,15 @@ namespace UseCases.Behaviours
         {
             var context = new ValidationContext<TRequest>(request);
 
-            var failures = _validators
+            var failuresList = _validators
                 .Select(v => v.Validate(context))
                 .SelectMany(r => r.Errors)
-                .Where(f => f != null);
+                .Where(f => f != null)
+                .Distinct()
+                .ToList();
 
-            if (failures.Count() != 0)
-                throw new Exceptions.ValidationException(failures.ToList());
+            if (failuresList.Count() != 0)
+                throw new Exceptions.ValidationException(failuresList);
 
             return next();
         }
