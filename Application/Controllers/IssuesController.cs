@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using UseCases.Handlers.Issues.Queries.GetIssuesList;
 using UseCases.Handlers.Issues.Queries.GetIssueDetail;
 using UseCases.Handlers.Issues.Commands.CreateIssue;
+using UseCases.Handlers.Issues.Commands.UpdateIssue;
+using UseCases.Handlers.Issues.Commands.DeleteIssue;
 
 namespace Application.Controllers
 {
@@ -18,8 +19,6 @@ namespace Application.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IssueDetailVm>> Get(int id)
         {
             var vm = await Mediator.Send(new GetIssueDetailQuery { Id = id });
@@ -28,11 +27,25 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> Create([FromBody] CreateIssueCommand command)
         {
             await Mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateIssueDto dto)
+        {
+            await Mediator.Send(new UpdateIssueCommand(id, dto));
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await Mediator.Send(new DeleteIssueCommand { Id = id });
 
             return NoContent();
         }

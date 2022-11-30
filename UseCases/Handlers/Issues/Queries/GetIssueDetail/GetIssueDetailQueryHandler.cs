@@ -24,7 +24,7 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
                 .Where(w => w.IssueId == request.Id)
                 .Select(i => new IssueDetailVm
                 {
-                    IssueId = i.IssueId,
+                    Id = i.IssueId,
                     Name = i.Name,
                     Description = i.Description,
                     StatusName = i.Status.Name,
