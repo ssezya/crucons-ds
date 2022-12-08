@@ -3,7 +3,7 @@ using Entities.Models;
 
 namespace DataAccess.PgSql.DataSeed
 {
-    internal static class AppDbContextDataSeed
+    internal static class ApplicationDbContextDataSeed
     {
         public static void Seed(this ModelBuilder builder)
         {

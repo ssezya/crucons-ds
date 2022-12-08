@@ -10,9 +10,9 @@ namespace UseCases.Handlers.Issues.Commands.UpdateIssue
 {
     public class UpdateIssueCommandHandler : IRequestHandler<UpdateIssueCommand>
     {
-        private readonly IDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public UpdateIssueCommandHandler(IDbContext dbContext)
+        public UpdateIssueCommandHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

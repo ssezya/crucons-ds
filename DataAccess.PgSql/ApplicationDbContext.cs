@@ -10,9 +10,9 @@ using DataAccess.PgSql.DataSeed;
 
 namespace DataAccess.PgSql
 {
-    public class AppDbContext : DbContext, IDbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Issue> Issues { get; set; }
         public DbSet<Job> Jobs { get; set; }

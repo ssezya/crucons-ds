@@ -8,9 +8,9 @@ namespace UseCases.Handlers.Issues.Commands.CreateIssue
 {
     public class CreateIssueCommandHandler : IRequestHandler<CreateIssueCommand>
     {
-        private readonly IDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public CreateIssueCommandHandler(IDbContext dbContext)
+        public CreateIssueCommandHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

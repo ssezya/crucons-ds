@@ -9,7 +9,7 @@ namespace DataAccess.PgSql
     {
         public static IServiceCollection AddDataAccessPgSql(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IDbContext, AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("AppDbConnection")));
+            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PgSqlDbConnection")));
 
             return services;
         }

@@ -5,7 +5,7 @@ using Entities.Models;
 
 namespace Infrastructure.Interfaces.DataAccess
 {
-    public interface IDbContext
+    public interface IApplicationDbContext
     {
         DbSet<Issue> Issues { get; }
         DbSet<Job> Jobs { get; }

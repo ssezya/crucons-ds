@@ -10,9 +10,9 @@ namespace UseCases.Handlers.Issues.Commands.DeleteIssue
 {
     public class DeleteIssueCommandHandler : IRequestHandler<DeleteIssueCommand>
     {
-        private readonly IDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public DeleteIssueCommandHandler(IDbContext dbContext)
+        public DeleteIssueCommandHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

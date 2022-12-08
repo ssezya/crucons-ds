@@ -11,16 +11,18 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
 {
     public class GetIssueDetailQueryHandler : IRequestHandler<GetIssueDetailQuery, IssueDetailVm>
     {
-        private readonly IDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public GetIssueDetailQueryHandler(IDbContext dbContext)
+        public GetIssueDetailQueryHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         public async Task<IssueDetailVm> Handle(GetIssueDetailQuery request, CancellationToken cancellationToken)
         {
-            var vm = await _dbContext.Issues.AsNoTracking()
+            var vm = await _dbContext.Issues
+                .AsNoTracking()
+                .Include(i => i.Jobs)
                 .Where(w => w.IssueId == request.Id)
                 .Select(i => new IssueDetailVm
                 {

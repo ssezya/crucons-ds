@@ -9,9 +9,9 @@ namespace UseCases.Handlers.Issues.Queries.GetIssuesList
 {
     public class GetIssuesListQueryHandler : IRequestHandler<GetIssuesListQuery, IssuesListVm>
     {
-        private readonly IDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public GetIssuesListQueryHandler(IDbContext dbContext)
+        public GetIssuesListQueryHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
