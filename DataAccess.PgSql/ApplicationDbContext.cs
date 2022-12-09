@@ -14,6 +14,7 @@ namespace DataAccess.PgSql
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Issue> Issues { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Status> Statuses { get; set; }

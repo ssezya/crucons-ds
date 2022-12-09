@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
+using Infrastructure.Implementation;
 using DataAccess.PgSql;
 using UseCases;
 using Application.Utils;
@@ -17,11 +18,12 @@ namespace Application
         {
             Configuration = configuration;
 
-            ValidatorOptions.Global.LanguageManager.Enabled = false; // Disable localization support
+            ValidatorOptions.Global.LanguageManager.Enabled = false; // Disable localization support for FluentValidation
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInfrastructure(Configuration);
             services.AddDataAccessPgSql(Configuration);
             services.AddUseCases();
 

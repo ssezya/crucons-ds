@@ -18,8 +18,15 @@ namespace DataAccess.PgSql.Configuration
                 .HasColumnName("created_at")
                 .IsRequired();
 
+            builder.Property(p => p.CreatedBy)
+                .HasColumnName("created_by")
+                .IsRequired();
+
             builder.Property(p => p.LastModifiedAt)
                 .HasColumnName("last_modified_at");
+
+            builder.Property(p => p.LastModifiedBy)
+                .HasColumnName("last_modified_by");
 
             builder.Property(p => p.Description)
                 .HasColumnName("description")
@@ -35,6 +42,16 @@ namespace DataAccess.PgSql.Configuration
             #endregion
 
             #region <Relations>
+            builder.HasOne(j => j.Creator)
+                .WithMany(t => t.CreatedJobs)
+                .HasForeignKey(p => p.CreatedBy)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(j => j.LastModificator)
+                .WithMany(t => t.LastModifiedJobs)
+                .HasForeignKey(p => p.LastModifiedBy)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasOne(j => j.Issue)
                 .WithMany(t => t.Jobs)
                 .OnDelete(DeleteBehavior.NoAction);

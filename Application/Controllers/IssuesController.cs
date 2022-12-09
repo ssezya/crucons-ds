@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using UseCases.Handlers.Issues.Queries.GetIssuesList;
 using UseCases.Handlers.Issues.Queries.GetIssueDetail;
 using UseCases.Handlers.Issues.Commands.CreateIssue;
@@ -27,6 +28,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateIssueCommand command)
         {
             await Mediator.Send(command);
@@ -35,6 +37,7 @@ namespace Application.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateIssueDto dto)
         {
             await Mediator.Send(new UpdateIssueCommand(id, dto));
@@ -43,6 +46,7 @@ namespace Application.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await Mediator.Send(new DeleteIssueCommand { Id = id });
