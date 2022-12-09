@@ -14,6 +14,10 @@ namespace DataAccess.PgSql.Configuration
             builder.Property(p => p.EmployeeId)
                 .HasColumnName("employee_id");
 
+            builder.Property(p => p.UserId)
+                .HasColumnName("user_id")
+                .IsRequired();
+
             builder.Property(p => p.FirstName)
                 .HasColumnName("first_name")
                 .HasMaxLength(50)

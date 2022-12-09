@@ -34,6 +34,8 @@ namespace Application
         {
             app.UseExceptionHandlerMiddleware();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

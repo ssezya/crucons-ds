@@ -27,7 +27,7 @@ namespace UseCases.Handlers.Auth.Commands.CreateToken
                 throw new NotFoundException(nameof(ApplicationIdentityUser), request.UserName);
 
             bool isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
-            if (isPasswordValid)
+            if (!isPasswordValid)
                 throw new BadRequestException("User password not valid");
 
             return _tokenService.CreateToken(user);
