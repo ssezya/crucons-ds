@@ -18,13 +18,17 @@ namespace UseCases.Handlers.Issues.Queries.GetIssuesList
 
         public async Task<IssuesListVm> Handle(GetIssuesListQuery request, CancellationToken cancellationToken)
         {
-            var issues = await _dbContext.Issues.Select(s => new IssueDto
-            {
-                Id = s.IssueId,
-                Name = s.Name,
-                StatusName = s.Status.Name,
-                CreatedAt = s.CreatedAt
-            }).OrderBy(o => o.CreatedAt).ToListAsync(cancellationToken);
+            var issues = await _dbContext.Issues
+                .AsNoTracking()
+                .Include(i => i.Creator)
+                .Select(s => new IssueDto
+                {
+                    Id = s.IssueId,
+                    Name = s.Name,
+                    StatusName = s.Status.Name,
+                    CreatedAt = s.CreatedAt,
+                    CreatedBy = s.Creator.FullName
+                }).OrderBy(o => o.CreatedAt).ToListAsync(cancellationToken);
 
             return new IssuesListVm
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entities.Base;
 
 namespace Entities.Models
@@ -9,6 +10,8 @@ namespace Entities.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int StatusId { get; set; }
+
+        public int JobsCount() => Jobs.Count();
 
         public Employee Creator { get; set; }
         public Employee LastModificator { get; set; }

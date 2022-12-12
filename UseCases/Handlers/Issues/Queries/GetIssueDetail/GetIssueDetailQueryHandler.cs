@@ -31,13 +31,19 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
                     Description = i.Description,
                     StatusName = i.Status.Name,
                     CreatedAt = i.CreatedAt,
+                    CreatedBy = i.Creator.FullName,
                     LastModifiedAt = i.LastModifiedAt,
+                    LastModifiedBy = i.LastModificator.FullName,
+                    JobsCount = i.JobsCount(),
                     Jobs = i.Jobs.Select(j => new IssueJobDto
                     {
                         JobId = j.JobId,
                         Description = j.Description,
                         ActionName = j.Action.ActionName,
-                        CreatedAt = j.CreatedAt
+                        CreatedAt = j.CreatedAt,
+                        CreatedBy = j.Creator.FullName,
+                        LastModifiedAt = j.LastModifiedAt,
+                        LastModifiedBy = j.LastModificator.FullName
                     }).ToList()
                 }).FirstOrDefaultAsync(cancellationToken);
 

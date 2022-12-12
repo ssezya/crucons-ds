@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
 {
@@ -11,8 +10,10 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
         public string Description { get; set; }
         public string StatusName { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
         public DateTime? LastModifiedAt { get; set; }
-        public int JobsCount() => Jobs.Count();
+        public string LastModifiedBy { get; set; }
+        public int JobsCount { get; set; }
         public ICollection<IssueJobDto> Jobs { get; set; }
     }
 }

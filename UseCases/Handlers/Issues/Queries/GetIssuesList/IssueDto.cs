@@ -8,5 +8,6 @@ namespace UseCases.Handlers.Issues.Queries.GetIssuesList
         public string Name { get; set; }
         public string StatusName { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Infrastructure.Interfaces.Identity.Services
 {
-    public interface ITokenService<TUser, TResponse> where TUser : class
+    public interface ITokenService<TRequest, TResponse> where TRequest : class
     {
-        TResponse CreateToken(TUser user);
+        TResponse CreateToken(TRequest request);
     }
 }

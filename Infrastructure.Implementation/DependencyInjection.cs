@@ -32,7 +32,7 @@ namespace Infrastructure.Implementation
             #endregion
 
             #region <Token>
-            services.AddScoped<ITokenService<ApplicationIdentityUser, TokenResponse>, JwtTokenService>();
+            services.AddScoped<ITokenService<TokenRequest, TokenResponse>, JwtTokenService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters

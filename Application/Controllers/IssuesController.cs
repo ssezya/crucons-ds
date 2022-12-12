@@ -9,6 +9,7 @@ using UseCases.Handlers.Issues.Commands.DeleteIssue;
 
 namespace Application.Controllers
 {
+    [Authorize]
     public class IssuesController : BaseController
     {
         [HttpGet]
@@ -28,7 +29,6 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateIssueCommand command)
         {
             await Mediator.Send(command);
@@ -37,7 +37,6 @@ namespace Application.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateIssueDto dto)
         {
             await Mediator.Send(new UpdateIssueCommand(id, dto));
@@ -46,7 +45,6 @@ namespace Application.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await Mediator.Send(new DeleteIssueCommand { Id = id });

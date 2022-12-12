@@ -8,25 +8,17 @@ namespace DataAccess.PgSql.Configuration
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            builder.ToTable("employees");
-
             #region <Properties>
-            builder.Property(p => p.EmployeeId)
-                .HasColumnName("employee_id");
-
             builder.Property(p => p.UserId)
-                .HasColumnName("user_id")
                 .IsRequired();
 
             builder.Property(p => p.FirstName)
-                .HasColumnName("first_name")
-                .HasMaxLength(50)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
 
             builder.Property(p => p.LastName)
-                .HasColumnName("last_name")
-                .HasMaxLength(50)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
             #endregion
 
             #region <Relations>

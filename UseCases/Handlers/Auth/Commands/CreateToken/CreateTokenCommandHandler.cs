@@ -1,10 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Utils.Identity;
 using Infrastructure.Implementation.Identity.Models;
 using Infrastructure.Interfaces.Identity.Services;
+using Infrastructure.Interfaces.DataAccess;
+using Entities.Models;
 using UseCases.Exceptions;
 
 namespace UseCases.Handlers.Auth.Commands.CreateToken
@@ -12,12 +15,14 @@ namespace UseCases.Handlers.Auth.Commands.CreateToken
     public class CreateTokenCommandHandler : IRequestHandler<CreateTokenCommand, TokenResponse>
     {
         private readonly UserManager<ApplicationIdentityUser> _userManager;
-        private readonly ITokenService<ApplicationIdentityUser, TokenResponse> _tokenService;
+        private readonly ITokenService<TokenRequest, TokenResponse> _tokenService;
+        private readonly IApplicationDbContext _dbContext;
 
-        public CreateTokenCommandHandler(UserManager<ApplicationIdentityUser> userManager, ITokenService<ApplicationIdentityUser, TokenResponse> tokenService)
+        public CreateTokenCommandHandler(UserManager<ApplicationIdentityUser> userManager, ITokenService<TokenRequest, TokenResponse> tokenService, IApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _dbContext = dbContext;
         }
 
         public async Task<TokenResponse> Handle(CreateTokenCommand request, CancellationToken cancellationToken)
@@ -28,9 +33,18 @@ namespace UseCases.Handlers.Auth.Commands.CreateToken
 
             bool isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
             if (!isPasswordValid)
-                throw new BadRequestException("User password not valid");
+                throw new BadRequestException("User password not valid.");
 
-            return _tokenService.CreateToken(user);
+            var employee = await _dbContext.Employees.AsNoTracking().FirstOrDefaultAsync(e => e.UserId == user.Id);
+            if (employee == null)
+                throw new NotFoundException(nameof(Employee), user.Id);
+
+            return _tokenService.CreateToken(new TokenRequest
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                EmployeeId = employee.EmployeeId
+            });
         }
     }
 }

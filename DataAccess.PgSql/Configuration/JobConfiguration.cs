@@ -8,36 +8,20 @@ namespace DataAccess.PgSql.Configuration
     {
         public void Configure(EntityTypeBuilder<Job> builder)
         {
-            builder.ToTable("jobs");
-
             #region <Properties>
-            builder.Property(p => p.JobId)
-                .HasColumnName("job_id");
-
             builder.Property(p => p.CreatedAt)
-                .HasColumnName("created_at")
                 .IsRequired();
 
             builder.Property(p => p.CreatedBy)
-                .HasColumnName("created_by")
                 .IsRequired();
 
-            builder.Property(p => p.LastModifiedAt)
-                .HasColumnName("last_modified_at");
-
-            builder.Property(p => p.LastModifiedBy)
-                .HasColumnName("last_modified_by");
-
             builder.Property(p => p.Description)
-                .HasColumnName("description")
                 .IsRequired();
 
             builder.Property(p => p.IssueId)
-                .HasColumnName("issue_id")
                 .IsRequired();
 
             builder.Property(p => p.ActionId)
-                .HasColumnName("action_id")
                 .IsRequired();
             #endregion
 

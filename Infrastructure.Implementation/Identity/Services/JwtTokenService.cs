@@ -5,12 +5,11 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Infrastructure.Interfaces.Identity.Services;
-using Infrastructure.Implementation.Identity.Models;
 using Utils.Identity;
 
 namespace Infrastructure.Implementation.Identity.Services
 {
-    public class JwtTokenService : ITokenService<ApplicationIdentityUser, TokenResponse>
+    public class JwtTokenService : ITokenService<TokenRequest, TokenResponse>
     {
         private readonly IConfiguration _configuration;
 
@@ -19,9 +18,9 @@ namespace Infrastructure.Implementation.Identity.Services
             _configuration = configuration;
         }
 
-        public TokenResponse CreateToken(ApplicationIdentityUser user)
+        public TokenResponse CreateToken(TokenRequest request)
         {
-            var claims = CreateClaims(user);
+            var claims = CreateClaims(request);
             var credentials = CreateSigningCredentials();
             var expiration = DateTime.Now.AddMinutes(ApplicationIdentityConstants.AccessTokenExpirationMinutes);
             var token = CreateJwtToken(claims, credentials, expiration);
@@ -46,11 +45,12 @@ namespace Infrastructure.Implementation.Identity.Services
             );
         }
 
-        private Claim[] CreateClaims(ApplicationIdentityUser user)
+        private Claim[] CreateClaims(TokenRequest request)
         {
             return new[] {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.NameIdentifier, request.UserId),
+                new Claim(ClaimTypes.Name, request.UserName),
+                new Claim(ApplicationIdentityConstants.EmployeeIdClaimType, request.EmployeeId.ToString())
             };
         }
 

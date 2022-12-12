@@ -8,21 +8,16 @@ namespace DataAccess.PgSql.Configuration
     {
         public void Configure(EntityTypeBuilder<Status> builder)
         {
-            builder.ToTable("statuses");
-
             #region <Properties>
-            builder.Property(p => p.StatusId)
-                .HasColumnName("status_id");
-
             builder.Property(p => p.Name)
+                .IsRequired()
                 .HasColumnName("name")
-                .HasMaxLength(50)
-                .IsRequired();
+                .HasMaxLength(50);
 
             builder.Property(p => p.ActionName)
+                .IsRequired()
                 .HasColumnName("action_name")
-                .HasMaxLength(50)
-                .IsRequired();
+                .HasMaxLength(50);
             #endregion
 
             #region <Relations>

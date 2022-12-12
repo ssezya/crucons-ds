@@ -6,7 +6,7 @@ namespace UseCases.Handlers.Issues.Commands.CreateIssue
     {
         public CreateIssueCommandValidator()
         {
-            RuleFor(p => p.Name).MinimumLength(3).MaximumLength(100).NotEmpty();
+            RuleFor(p => p.Name).NotEmpty().MinimumLength(3).MaximumLength(100);
         }
     }
 }
