@@ -19,7 +19,7 @@ namespace UseCases.Handlers.Issues.Commands.DeleteIssue
 
         public async Task<Unit> Handle(DeleteIssueCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Issues.FirstOrDefaultAsync(i => i.IssueId == request.Id, cancellationToken);
+            var entity = await _dbContext.Issues.FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
             if (entity == null)
                 throw new NotFoundException(nameof(Issue), request.Id);
 

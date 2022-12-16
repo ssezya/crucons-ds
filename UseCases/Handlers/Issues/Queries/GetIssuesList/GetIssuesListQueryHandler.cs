@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Infrastructure.Interfaces.DataAccess;
+using Utils.Extensions;
 
 namespace UseCases.Handlers.Issues.Queries.GetIssuesList
 {
@@ -20,15 +21,15 @@ namespace UseCases.Handlers.Issues.Queries.GetIssuesList
         {
             var issues = await _dbContext.Issues
                 .AsNoTracking()
-                .Include(i => i.Creator)
                 .Select(s => new IssueDto
                 {
-                    Id = s.IssueId,
-                    Name = s.Name,
-                    StatusName = s.Status.Name,
-                    CreatedAt = s.CreatedAt,
-                    CreatedBy = s.Creator.FullName
-                }).OrderBy(o => o.CreatedAt).ToListAsync(cancellationToken);
+                    Id = s.Id,
+                    Title = s.Title,
+                    ProjectName = s.Project.Name,
+                    ReporterName = s.Reporter.FullName,
+                    StatusName = s.StatusId.GetDisplayName(),
+                    ExecutorName = s.Executor.FullName
+                }).OrderBy(o => o.Id).ToListAsync(cancellationToken);
 
             return new IssuesListVm
             {

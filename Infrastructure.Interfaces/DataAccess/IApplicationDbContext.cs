@@ -8,9 +8,9 @@ namespace Infrastructure.Interfaces.DataAccess
     public interface IApplicationDbContext
     {
         DbSet<Employee> Employees { get; }
+        DbSet<Project> Projects { get; }
         DbSet<Issue> Issues { get; }
         DbSet<Job> Jobs { get; }
-        DbSet<Status> Statuses { get; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken token = default);

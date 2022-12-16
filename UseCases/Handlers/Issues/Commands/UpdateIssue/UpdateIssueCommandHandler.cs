@@ -19,12 +19,15 @@ namespace UseCases.Handlers.Issues.Commands.UpdateIssue
 
         public async Task<Unit> Handle(UpdateIssueCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Issues.FirstOrDefaultAsync(i => i.IssueId == request.Id, cancellationToken);
+            var entity = await _dbContext.Issues.FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
             if (entity == null)
                 throw new NotFoundException(nameof(Issue), request.Id);
 
-            entity.Name = request.Dto.Name;
+            entity.Title = request.Dto.Title;
             entity.Description = request.Dto.Description;
+            entity.ProjectId = request.Dto.ProjectId;
+            entity.ReporterId = request.Dto.ReporterId;
+            entity.ExecutorId = request.Dto.ExecutorId;
             entity.StatusId = request.Dto.StatusId;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

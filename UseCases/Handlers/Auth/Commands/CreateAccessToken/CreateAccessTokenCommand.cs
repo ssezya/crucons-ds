@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Utils.Identity;
 
-namespace UseCases.Handlers.Auth.Commands.CreateToken
+namespace UseCases.Handlers.Auth.Commands.CreateAccessToken
 {
-    public class CreateTokenCommand : IRequest<TokenResponse>
+    public class CreateAccessTokenCommand : IRequest<TokenResponse>
     {
         public string UserName { get; set; }
         public string Password { get; set; }

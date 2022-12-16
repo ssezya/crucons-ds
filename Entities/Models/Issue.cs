@@ -1,21 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Entities.Base;
+using Entities.Enums;
 
 namespace Entities.Models
 {
     public class Issue : AuditableEntity
     {
-        public int IssueId { get; set; }
-        public string Name { get; set; }
+        public Issue()
+        {
+            Jobs = new HashSet<Job>();
+        }
+
+        public int Id { get; private set; }
+        public string Title { get; set; }
         public string Description { get; set; }
-        public int StatusId { get; set; }
+        public int ProjectId { get; set; }
+        public int ReporterId { get; set; }
+        public IssueStatus StatusId { get; set; }
+        public int? ExecutorId { get; set; }
 
-        public int JobsCount() => Jobs.Count();
+        public Project Project { get; set; }
+        public Employee Reporter { get; set; }
+        public Employee Executor { get; set; }
 
-        public Employee Creator { get; set; }
-        public Employee LastModificator { get; set; }
-        public Status Status { get; set; }
-        public ICollection<Job> Jobs { get; private set; } = new HashSet<Job>();
+        public ICollection<Job> Jobs { get; private set; }
     }
 }

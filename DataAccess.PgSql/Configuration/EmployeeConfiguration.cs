@@ -22,21 +22,20 @@ namespace DataAccess.PgSql.Configuration
             #endregion
 
             #region <Relations>
-            builder.HasMany(e => e.CreatedIssues)
-                .WithOne(i => i.Creator)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(e => e.ReporterOfIssues)
+                .WithOne(i => i.Reporter)
+                .HasForeignKey(i => i.ReporterId)
+                .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasMany(e => e.LastModifiedIssues)
-                .WithOne(i => i.LastModificator)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(e => e.ExecutorOfIssues)
+                .WithOne(i => i.Executor)
+                .HasForeignKey(i => i.ExecutorId)
+                .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasMany(e => e.CreatedJobs)
-                .WithOne(j => j.Creator)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(e => e.LastModifiedJobs)
-                .WithOne(j => j.LastModificator)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(e => e.ExecutorOfJobs)
+                .WithOne(j => j.Executor)
+                .HasForeignKey(j => j.ExecutorId)
+                .OnDelete(DeleteBehavior.SetNull);
             #endregion
         }
     }

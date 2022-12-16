@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.PgSql.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221212151008_Initial")]
+    [Migration("20221216132810_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace DataAccess.PgSql.Migrations
 
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -42,57 +42,67 @@ namespace DataAccess.PgSql.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Entities.Models.Issue", b =>
                 {
-                    b.Property<int>("IssueId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("LastModifiedAt")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
 
-                    b.Property<int?>("LastModifiedBy")
+                    b.Property<int?>("ExecutorId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<DateTime?>("LastModifiedAtUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReporterId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasDefaultValue(1);
 
-                    b.HasKey("IssueId");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasKey("Id");
 
-                    b.HasIndex("LastModifiedBy");
+                    b.HasIndex("ExecutorId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("ReporterId");
 
                     b.ToTable("Issues");
                 });
 
             modelBuilder.Entity("Entities.Models.Job", b =>
                 {
-                    b.Property<int>("JobId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -100,125 +110,98 @@ namespace DataAccess.PgSql.Migrations
                     b.Property<int>("ActionId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
+
+                    b.Property<int>("ExecutorId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("IssueId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("LastModifiedAt")
+                    b.Property<DateTime?>("LastModifiedAtUtc")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("LastModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
-                    b.HasKey("JobId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ActionId");
-
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex("ExecutorId");
 
                     b.HasIndex("IssueId");
-
-                    b.HasIndex("LastModifiedBy");
 
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("Entities.Models.Status", b =>
+            modelBuilder.Entity("Entities.Models.Project", b =>
                 {
-                    b.Property<int>("StatusId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("ActionName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("action_name");
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastModifiedAtUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("name");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.HasKey("StatusId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Statuses");
-
-                    b.HasData(
-                        new
-                        {
-                            StatusId = 1,
-                            ActionName = "Input",
-                            Name = "New"
-                        },
-                        new
-                        {
-                            StatusId = 2,
-                            ActionName = "Opening",
-                            Name = "Open"
-                        },
-                        new
-                        {
-                            StatusId = 3,
-                            ActionName = "Solution",
-                            Name = "Solved"
-                        },
-                        new
-                        {
-                            StatusId = 4,
-                            ActionName = "Closure",
-                            Name = "Closed"
-                        });
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Entities.Models.Issue", b =>
                 {
-                    b.HasOne("Entities.Models.Employee", "Creator")
-                        .WithMany("CreatedIssues")
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Employee", "LastModificator")
-                        .WithMany("LastModifiedIssues")
-                        .HasForeignKey("LastModifiedBy")
+                    b.HasOne("Entities.Models.Employee", "Executor")
+                        .WithMany("ExecutorOfIssues")
+                        .HasForeignKey("ExecutorId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Entities.Models.Status", "Status")
+                    b.HasOne("Entities.Models.Project", "Project")
                         .WithMany("Issues")
-                        .HasForeignKey("StatusId")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Employee", "Reporter")
+                        .WithMany("ReporterOfIssues")
+                        .HasForeignKey("ReporterId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.Navigation("Executor");
 
-                    b.Navigation("LastModificator");
+                    b.Navigation("Project");
 
-                    b.Navigation("Status");
+                    b.Navigation("Reporter");
                 });
 
             modelBuilder.Entity("Entities.Models.Job", b =>
                 {
-                    b.HasOne("Entities.Models.Status", "Action")
-                        .WithMany("Jobs")
-                        .HasForeignKey("ActionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Employee", "Creator")
-                        .WithMany("CreatedJobs")
-                        .HasForeignKey("CreatedBy")
+                    b.HasOne("Entities.Models.Employee", "Executor")
+                        .WithMany("ExecutorOfJobs")
+                        .HasForeignKey("ExecutorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -228,29 +211,18 @@ namespace DataAccess.PgSql.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Employee", "LastModificator")
-                        .WithMany("LastModifiedJobs")
-                        .HasForeignKey("LastModifiedBy")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Action");
-
-                    b.Navigation("Creator");
+                    b.Navigation("Executor");
 
                     b.Navigation("Issue");
-
-                    b.Navigation("LastModificator");
                 });
 
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
-                    b.Navigation("CreatedIssues");
+                    b.Navigation("ExecutorOfIssues");
 
-                    b.Navigation("CreatedJobs");
+                    b.Navigation("ExecutorOfJobs");
 
-                    b.Navigation("LastModifiedIssues");
-
-                    b.Navigation("LastModifiedJobs");
+                    b.Navigation("ReporterOfIssues");
                 });
 
             modelBuilder.Entity("Entities.Models.Issue", b =>
@@ -258,11 +230,9 @@ namespace DataAccess.PgSql.Migrations
                     b.Navigation("Jobs");
                 });
 
-            modelBuilder.Entity("Entities.Models.Status", b =>
+            modelBuilder.Entity("Entities.Models.Project", b =>
                 {
                     b.Navigation("Issues");
-
-                    b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618
         }

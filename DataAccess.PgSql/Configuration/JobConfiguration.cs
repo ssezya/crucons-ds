@@ -9,39 +9,20 @@ namespace DataAccess.PgSql.Configuration
         public void Configure(EntityTypeBuilder<Job> builder)
         {
             #region <Properties>
-            builder.Property(p => p.CreatedAt)
-                .IsRequired();
-
-            builder.Property(p => p.CreatedBy)
-                .IsRequired();
-
             builder.Property(p => p.Description)
-                .IsRequired();
-
-            builder.Property(p => p.IssueId)
-                .IsRequired();
-
-            builder.Property(p => p.ActionId)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(4000);
             #endregion
 
             #region <Relations>
-            builder.HasOne(j => j.Creator)
-                .WithMany(t => t.CreatedJobs)
-                .HasForeignKey(p => p.CreatedBy)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(j => j.LastModificator)
-                .WithMany(t => t.LastModifiedJobs)
-                .HasForeignKey(p => p.LastModifiedBy)
-                .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasOne(j => j.Issue)
-                .WithMany(t => t.Jobs)
+                .WithMany(i => i.Jobs)
+                .HasForeignKey(j => j.IssueId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(j => j.Action)
-                .WithMany(s => s.Jobs)
+            builder.HasOne(j => j.Executor)
+                .WithMany(s => s.ExecutorOfJobs)
+                .HasForeignKey(p => p.ExecutorId)
                 .OnDelete(DeleteBehavior.NoAction);
             #endregion
         }

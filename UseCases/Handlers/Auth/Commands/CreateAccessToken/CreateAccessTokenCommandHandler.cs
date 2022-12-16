@@ -10,22 +10,22 @@ using Infrastructure.Interfaces.DataAccess;
 using Entities.Models;
 using UseCases.Exceptions;
 
-namespace UseCases.Handlers.Auth.Commands.CreateToken
+namespace UseCases.Handlers.Auth.Commands.CreateAccessToken
 {
-    public class CreateTokenCommandHandler : IRequestHandler<CreateTokenCommand, TokenResponse>
+    public class CreateAccessTokenCommandHandler : IRequestHandler<CreateAccessTokenCommand, TokenResponse>
     {
         private readonly UserManager<ApplicationIdentityUser> _userManager;
         private readonly ITokenService<TokenRequest, TokenResponse> _tokenService;
         private readonly IApplicationDbContext _dbContext;
 
-        public CreateTokenCommandHandler(UserManager<ApplicationIdentityUser> userManager, ITokenService<TokenRequest, TokenResponse> tokenService, IApplicationDbContext dbContext)
+        public CreateAccessTokenCommandHandler(UserManager<ApplicationIdentityUser> userManager, ITokenService<TokenRequest, TokenResponse> tokenService, IApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _dbContext = dbContext;
         }
 
-        public async Task<TokenResponse> Handle(CreateTokenCommand request, CancellationToken cancellationToken)
+        public async Task<TokenResponse> Handle(CreateAccessTokenCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null)
@@ -43,7 +43,7 @@ namespace UseCases.Handlers.Auth.Commands.CreateToken
             {
                 UserId = user.Id,
                 UserName = user.UserName,
-                EmployeeId = employee.EmployeeId
+                EmployeeId = employee.Id
             });
         }
     }

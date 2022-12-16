@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Utils.Identity;
-using UseCases.Handlers.Auth.Commands.CreateToken;
+using UseCases.Handlers.Auth.Commands.CreateAccessToken;
 
 namespace Application.Controllers
 {
     public class AuthController : BaseController
     {
-        [HttpPost("access-token")]
+        [HttpPost("token")]
         [AllowAnonymous]
-        public async Task<ActionResult<TokenResponse>> Create([FromBody] CreateTokenCommand command) => Ok(await Mediator.Send(command));
+        public async Task<ActionResult<TokenResponse>> Create([FromBody] CreateAccessTokenCommand command) => Ok(await Mediator.Send(command));
     }
 }

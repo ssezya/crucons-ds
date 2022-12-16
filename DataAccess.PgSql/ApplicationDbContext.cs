@@ -23,9 +23,9 @@ namespace DataAccess.PgSql
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<Issue> Issues { get; set; }
         public DbSet<Job> Jobs { get; set; }
-        public DbSet<Status> Statuses { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -34,12 +34,12 @@ namespace DataAccess.PgSql
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedAt = DateTime.Now;
-                        entry.Entity.CreatedBy = _currentUserService.EmployeeId;
+                        entry.Entity.CreatedAtUtc = DateTime.UtcNow;
+                        entry.Entity.CreatedBy = _currentUserService.UserId;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedAt = DateTime.Now;
-                        entry.Entity.LastModifiedBy = _currentUserService.EmployeeId;
+                        entry.Entity.LastModifiedAtUtc = DateTime.UtcNow;
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
                         break;
                 }
             }

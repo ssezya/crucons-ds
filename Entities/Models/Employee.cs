@@ -4,16 +4,22 @@ namespace Entities.Models
 {
     public class Employee
     {
-        public int EmployeeId { get; set; }
+        public Employee()
+        {
+            ReporterOfIssues = new HashSet<Issue>();
+            ExecutorOfIssues = new HashSet<Issue>();
+            ExecutorOfJobs = new HashSet<Job>();
+        }
+
+        public int Id { get; set; }
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 
-        public ICollection<Issue> CreatedIssues { get; private set; } = new HashSet<Issue>();
-        public ICollection<Issue> LastModifiedIssues { get; private set; } = new HashSet<Issue>();
-        public ICollection<Job> CreatedJobs { get; private set; } = new HashSet<Job>();
-        public ICollection<Job> LastModifiedJobs { get; private set; } = new HashSet<Job>();
+        public ICollection<Issue> ReporterOfIssues { get; private set; }
+        public ICollection<Issue> ExecutorOfIssues { get; private set; }
+        public ICollection<Job> ExecutorOfJobs { get; private set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Infrastructure.Interfaces.DataAccess;
+using Infrastructure.Interfaces.Identity.Services;
 using Entities.Models;
 
 namespace UseCases.Handlers.Jobs.Commands.CreateJob
@@ -9,10 +10,12 @@ namespace UseCases.Handlers.Jobs.Commands.CreateJob
     public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand>
     {
         private readonly IApplicationDbContext _dbContext;
+        private readonly ICurrentUserService _currentUser;
 
-        public CreateJobCommandHandler(IApplicationDbContext dbContext)
+        public CreateJobCommandHandler(IApplicationDbContext dbContext, ICurrentUserService currentUser)
         {
             _dbContext = dbContext;
+            _currentUser = currentUser;
         }
 
         public async Task<Unit> Handle(CreateJobCommand request, CancellationToken cancellationToken)
@@ -21,7 +24,8 @@ namespace UseCases.Handlers.Jobs.Commands.CreateJob
             {
                 IssueId = request.IssueId,
                 ActionId = request.ActionId,
-                Description = request.Description
+                Description = request.Description,
+                ExecutorId = _currentUser.EmployeeId
             });
 
             await _dbContext.SaveChangesAsync(cancellationToken);

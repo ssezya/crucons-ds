@@ -19,8 +19,11 @@ namespace UseCases.Handlers.Issues.Commands.CreateIssue
         {
             _dbContext.Issues.Add(new Issue
             {
-                Name = request.Name,
-                Description = request.Description
+                Title = request.Title,
+                Description = request.Description,
+                ProjectId = request.ProjectId,
+                ReporterId = request.ReporterId,
+                ExecutorId = request.ExecutorId
             });
 
             await _dbContext.SaveChangesAsync(cancellationToken);

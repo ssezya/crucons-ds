@@ -6,6 +6,7 @@ using MediatR;
 using Infrastructure.Interfaces.DataAccess;
 using Entities.Models;
 using UseCases.Exceptions;
+using Utils.Extensions;
 
 namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
 {
@@ -23,27 +24,22 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
             var vm = await _dbContext.Issues
                 .AsNoTracking()
                 .Include(i => i.Jobs)
-                .Where(w => w.IssueId == request.Id)
+                .Where(w => w.Id == request.Id)
                 .Select(i => new IssueDetailVm
                 {
-                    Id = i.IssueId,
-                    Name = i.Name,
+                    Id = i.Id,
+                    Title = i.Title,
                     Description = i.Description,
-                    StatusName = i.Status.Name,
-                    CreatedAt = i.CreatedAt,
-                    CreatedBy = i.Creator.FullName,
-                    LastModifiedAt = i.LastModifiedAt,
-                    LastModifiedBy = i.LastModificator.FullName,
-                    JobsCount = i.JobsCount(),
+                    ProjectName = i.Project.Name,
+                    ReporterName = i.Reporter.FullName,
+                    StatusName = i.StatusId.GetDisplayName(),
+                    ExecutorName = i.Executor.FullName,
                     Jobs = i.Jobs.Select(j => new IssueJobDto
                     {
-                        JobId = j.JobId,
+                        Id = j.Id,
                         Description = j.Description,
-                        ActionName = j.Action.ActionName,
-                        CreatedAt = j.CreatedAt,
-                        CreatedBy = j.Creator.FullName,
-                        LastModifiedAt = j.LastModifiedAt,
-                        LastModifiedBy = j.LastModificator.FullName
+                        ExecutorName = j.Executor.FullName,
+                        ActionName = j.ActionId.GetDisplayName()
                     }).ToList()
                 }).FirstOrDefaultAsync(cancellationToken);
 
