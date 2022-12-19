@@ -23,7 +23,7 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
         {
             var vm = await _dbContext.Issues
                 .AsNoTracking()
-                .Include(i => i.Jobs)
+                .Include(i => i.Notes)
                 .Where(w => w.Id == request.Id)
                 .Select(i => new IssueDetailVm
                 {
@@ -34,12 +34,11 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
                     ReporterName = i.Reporter.FullName,
                     StatusName = i.StatusId.GetDisplayName(),
                     ExecutorName = i.Executor.FullName,
-                    Jobs = i.Jobs.Select(j => new IssueJobDto
+                    Notes = i.Notes.Select(n => new IssueNoteDto
                     {
-                        Id = j.Id,
-                        Description = j.Description,
-                        ExecutorName = j.Executor.FullName,
-                        ActionName = j.ActionId.GetDisplayName()
+                        Id = n.Id,
+                        Description = n.Description,
+                        WriterName = n.Writer.FullName
                     }).ToList()
                 }).FirstOrDefaultAsync(cancellationToken);
 

@@ -1,10 +1,9 @@
 ﻿namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
 {
-    public class IssueJobDto
+    public class IssueNoteDto
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public string ExecutorName { get; set; }
-        public string ActionName { get; set; }
+        public string WriterName { get; set; }
     }
 }

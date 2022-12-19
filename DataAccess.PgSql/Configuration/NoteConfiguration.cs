@@ -4,25 +4,25 @@ using Entities.Models;
 
 namespace DataAccess.PgSql.Configuration
 {
-    public class JobConfiguration : IEntityTypeConfiguration<Job>
+    public class NoteConfiguration : IEntityTypeConfiguration<Note>
     {
-        public void Configure(EntityTypeBuilder<Job> builder)
+        public void Configure(EntityTypeBuilder<Note> builder)
         {
             #region <Properties>
             builder.Property(p => p.Description)
                 .IsRequired()
-                .HasMaxLength(4000);
+                .HasMaxLength(2000);
             #endregion
 
             #region <Relations>
-            builder.HasOne(j => j.Issue)
-                .WithMany(i => i.Jobs)
-                .HasForeignKey(j => j.IssueId)
+            builder.HasOne(n => n.Issue)
+                .WithMany(i => i.Notes)
+                .HasForeignKey(n => n.IssueId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(j => j.Executor)
-                .WithMany(s => s.ExecutorOfJobs)
-                .HasForeignKey(p => p.ExecutorId)
+            builder.HasOne(n => n.Writer)
+                .WithMany(e => e.WriterOfNotes)
+                .HasForeignKey(n => n.WriterId)
                 .OnDelete(DeleteBehavior.NoAction);
             #endregion
         }

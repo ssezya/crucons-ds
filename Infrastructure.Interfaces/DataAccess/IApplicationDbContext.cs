@@ -10,7 +10,7 @@ namespace Infrastructure.Interfaces.DataAccess
         DbSet<Employee> Employees { get; }
         DbSet<Project> Projects { get; }
         DbSet<Issue> Issues { get; }
-        DbSet<Job> Jobs { get; }
+        DbSet<Note> Notes { get; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken token = default);

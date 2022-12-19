@@ -1,6 +1,6 @@
 ## Crucons
 
-Crunch control system.
+Crunch control system
 
 ```
 Update-Database -Context ApplicationIdentityDbContext

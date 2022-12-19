@@ -9,7 +9,7 @@ namespace DataAccess.PgSql
     {
         public static IServiceCollection AddDataAccessPgSql(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PgSqlDbConnection")));
+            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PgSqlDbConnection"), x => x.MigrationsHistoryTable("__MigrationsHistory", "System")));
 
             return services;
         }

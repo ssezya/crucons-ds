@@ -18,7 +18,7 @@ namespace Infrastructure.Implementation
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             #region <Identity>
-            services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PgSqlDbConnection")));
+            services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PgSqlDbConnection"), x => x.MigrationsHistoryTable("__MigrationsHistory", "System")));
             services.AddIdentityCore<ApplicationIdentityUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;

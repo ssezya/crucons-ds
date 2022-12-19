@@ -13,7 +13,7 @@ namespace Infrastructure.Implementation.Identity
         {
             base.OnModelCreating(builder);
 
-            builder.HasDefaultSchema("identity");
+            builder.HasDefaultSchema("Identity");
             builder.Entity<ApplicationIdentityUser>().ToTable("Users");
             builder.Entity<ApplicationIdentityRole>().ToTable("Roles");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");

@@ -12,6 +12,6 @@ namespace UseCases.Handlers.Issues.Queries.GetIssueDetail
         public string StatusName { get; set; }
         public string ExecutorName { get; set; }
 
-        public ICollection<IssueJobDto> Jobs { get; set; }
+        public ICollection<IssueNoteDto> Notes { get; set; }
     }
 }

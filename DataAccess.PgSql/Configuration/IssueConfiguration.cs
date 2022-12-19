@@ -37,9 +37,9 @@ namespace DataAccess.PgSql.Configuration
                 .HasForeignKey(i => i.ExecutorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(i => i.Jobs)
-                .WithOne(j => j.Issue)
-                .HasForeignKey(j => j.IssueId)
+            builder.HasMany(i => i.Notes)
+                .WithOne(n => n.Issue)
+                .HasForeignKey(n => n.IssueId)
                 .OnDelete(DeleteBehavior.Cascade);
             #endregion
         }

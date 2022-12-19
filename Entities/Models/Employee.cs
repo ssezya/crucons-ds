@@ -8,7 +8,7 @@ namespace Entities.Models
         {
             ReporterOfIssues = new HashSet<Issue>();
             ExecutorOfIssues = new HashSet<Issue>();
-            ExecutorOfJobs = new HashSet<Job>();
+            WriterOfNotes = new HashSet<Note>();
         }
 
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace Entities.Models
 
         public ICollection<Issue> ReporterOfIssues { get; private set; }
         public ICollection<Issue> ExecutorOfIssues { get; private set; }
-        public ICollection<Job> ExecutorOfJobs { get; private set; }
+        public ICollection<Note> WriterOfNotes { get; private set; }
     }
 }

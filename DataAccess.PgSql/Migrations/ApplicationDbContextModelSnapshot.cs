@@ -15,6 +15,7 @@ namespace DataAccess.PgSql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Public")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -98,15 +99,12 @@ namespace DataAccess.PgSql.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Entities.Models.Job", b =>
+            modelBuilder.Entity("Entities.Models.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ActionId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("timestamp without time zone");
@@ -116,11 +114,8 @@ namespace DataAccess.PgSql.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(4000)
-                        .HasColumnType("character varying(4000)");
-
-                    b.Property<int>("ExecutorId")
-                        .HasColumnType("integer");
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
 
                     b.Property<int>("IssueId")
                         .HasColumnType("integer");
@@ -131,13 +126,16 @@ namespace DataAccess.PgSql.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<int>("WriterId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("ExecutorId");
+                    b.HasKey("Id");
 
                     b.HasIndex("IssueId");
 
-                    b.ToTable("Jobs");
+                    b.HasIndex("WriterId");
+
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("Entities.Models.Project", b =>
@@ -195,37 +193,37 @@ namespace DataAccess.PgSql.Migrations
                     b.Navigation("Reporter");
                 });
 
-            modelBuilder.Entity("Entities.Models.Job", b =>
+            modelBuilder.Entity("Entities.Models.Note", b =>
                 {
-                    b.HasOne("Entities.Models.Employee", "Executor")
-                        .WithMany("ExecutorOfJobs")
-                        .HasForeignKey("ExecutorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Entities.Models.Issue", "Issue")
-                        .WithMany("Jobs")
+                        .WithMany("Notes")
                         .HasForeignKey("IssueId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Executor");
+                    b.HasOne("Entities.Models.Employee", "Writer")
+                        .WithMany("WriterOfNotes")
+                        .HasForeignKey("WriterId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Issue");
+
+                    b.Navigation("Writer");
                 });
 
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
                     b.Navigation("ExecutorOfIssues");
 
-                    b.Navigation("ExecutorOfJobs");
-
                     b.Navigation("ReporterOfIssues");
+
+                    b.Navigation("WriterOfNotes");
                 });
 
             modelBuilder.Entity("Entities.Models.Issue", b =>
                 {
-                    b.Navigation("Jobs");
+                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("Entities.Models.Project", b =>

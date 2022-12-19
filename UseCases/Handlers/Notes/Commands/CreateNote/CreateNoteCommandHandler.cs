@@ -5,27 +5,26 @@ using Infrastructure.Interfaces.DataAccess;
 using Infrastructure.Interfaces.Identity.Services;
 using Entities.Models;
 
-namespace UseCases.Handlers.Jobs.Commands.CreateJob
+namespace UseCases.Handlers.Notes.Commands.CreateNote
 {
-    public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand>
+    public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly ICurrentUserService _currentUser;
 
-        public CreateJobCommandHandler(IApplicationDbContext dbContext, ICurrentUserService currentUser)
+        public CreateNoteCommandHandler(IApplicationDbContext dbContext, ICurrentUserService currentUser)
         {
             _dbContext = dbContext;
             _currentUser = currentUser;
         }
 
-        public async Task<Unit> Handle(CreateJobCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
         {
-            _dbContext.Jobs.Add(new Job
+            _dbContext.Notes.Add(new Note
             {
                 IssueId = request.IssueId,
-                ActionId = request.ActionId,
                 Description = request.Description,
-                ExecutorId = _currentUser.EmployeeId
+                WriterId = _currentUser.EmployeeId
             });
 
             await _dbContext.SaveChangesAsync(cancellationToken);
