@@ -6,6 +6,7 @@ using UseCases.Handlers.Issues.Queries.GetIssueDetail;
 using UseCases.Handlers.Issues.Commands.CreateIssue;
 using UseCases.Handlers.Issues.Commands.UpdateIssue;
 using UseCases.Handlers.Issues.Commands.DeleteIssue;
+using UseCases.Handlers.Issues.Commands.CreateIssueNote;
 
 namespace Application.Controllers
 {
@@ -13,20 +14,10 @@ namespace Application.Controllers
     public class IssuesController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<IssuesListVm>> GetAll()
-        {
-            var vm = await Mediator.Send(new GetIssuesListQuery());
-
-            return Ok(vm);
-        }
+        public async Task<ActionResult<IssuesListVm>> GetAll() => Ok(await Mediator.Send(new GetIssuesListQuery()));
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IssueDetailVm>> Get(int id)
-        {
-            var vm = await Mediator.Send(new GetIssueDetailQuery { Id = id });
-
-            return Ok(vm);
-        }
+        public async Task<ActionResult<IssueDetailVm>> Get(int id) => Ok(await Mediator.Send(new GetIssueDetailQuery { Id = id }));
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateIssueCommand command)
@@ -48,6 +39,14 @@ namespace Application.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await Mediator.Send(new DeleteIssueCommand { Id = id });
+
+            return NoContent();
+        }
+
+        [HttpPost("notes")]
+        public async Task<IActionResult> CreateIssueNote([FromBody] CreateIssueNoteCommand command)
+        {
+            await Mediator.Send(command);
 
             return NoContent();
         }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace UseCases.Handlers.IssueNotes.Commands.CreateIssueNote
+namespace UseCases.Handlers.Issues.Commands.CreateIssueNote
 {
     public class CreateIssueNoteCommand : IRequest
     {

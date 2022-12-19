@@ -5,7 +5,7 @@ using Infrastructure.Interfaces.DataAccess;
 using Infrastructure.Interfaces.Identity.Services;
 using Entities.Models;
 
-namespace UseCases.Handlers.IssueNotes.Commands.CreateIssueNote
+namespace UseCases.Handlers.Issues.Commands.CreateIssueNote
 {
     public class CreateIssueNoteCommandHandler : IRequestHandler<CreateIssueNoteCommand>
     {
