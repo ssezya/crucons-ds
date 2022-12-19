@@ -25,7 +25,7 @@ namespace DataAccess.PgSql
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Issue> Issues { get; set; }
-        public DbSet<Note> Notes { get; set; }
+        public DbSet<IssueNote> IssueNotes { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

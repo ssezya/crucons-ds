@@ -99,7 +99,7 @@ namespace DataAccess.PgSql.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Entities.Models.Note", b =>
+            modelBuilder.Entity("Entities.Models.IssueNote", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,7 @@ namespace DataAccess.PgSql.Migrations
 
                     b.HasIndex("WriterId");
 
-                    b.ToTable("Notes");
+                    b.ToTable("IssueNotes");
                 });
 
             modelBuilder.Entity("Entities.Models.Project", b =>
@@ -193,7 +193,7 @@ namespace DataAccess.PgSql.Migrations
                     b.Navigation("Reporter");
                 });
 
-            modelBuilder.Entity("Entities.Models.Note", b =>
+            modelBuilder.Entity("Entities.Models.IssueNote", b =>
                 {
                     b.HasOne("Entities.Models.Issue", "Issue")
                         .WithMany("Notes")
@@ -202,7 +202,7 @@ namespace DataAccess.PgSql.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Models.Employee", "Writer")
-                        .WithMany("WriterOfNotes")
+                        .WithMany("WriterOfIssueNotes")
                         .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -218,7 +218,7 @@ namespace DataAccess.PgSql.Migrations
 
                     b.Navigation("ReporterOfIssues");
 
-                    b.Navigation("WriterOfNotes");
+                    b.Navigation("WriterOfIssueNotes");
                 });
 
             modelBuilder.Entity("Entities.Models.Issue", b =>

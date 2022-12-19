@@ -8,7 +8,7 @@ namespace Entities.Models
     {
         public Issue()
         {
-            Notes = new HashSet<Note>();
+            Notes = new HashSet<IssueNote>();
         }
 
         public int Id { get; private set; }
@@ -23,6 +23,6 @@ namespace Entities.Models
         public Employee Reporter { get; set; }
         public Employee Executor { get; set; }
 
-        public ICollection<Note> Notes { get; private set; }
+        public ICollection<IssueNote> Notes { get; private set; }
     }
 }

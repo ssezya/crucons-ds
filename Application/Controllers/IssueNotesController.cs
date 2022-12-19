@@ -1,15 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UseCases.Handlers.Notes.Commands.CreateNote;
+using UseCases.Handlers.IssueNotes.Commands.CreateIssueNote;
 
 namespace Application.Controllers
 {
     [Authorize]
-    public class NotesController : BaseController
+    public class IssueNotesController : BaseController
     {
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateNoteCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateIssueNoteCommand command)
         {
             await Mediator.Send(command);
 

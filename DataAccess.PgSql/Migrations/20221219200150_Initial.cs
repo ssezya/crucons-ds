@@ -88,7 +88,7 @@ namespace DataAccess.PgSql.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notes",
+                name: "IssueNotes",
                 schema: "Public",
                 columns: table => new
                 {
@@ -104,20 +104,32 @@ namespace DataAccess.PgSql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notes", x => x.Id);
+                    table.PrimaryKey("PK_IssueNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notes_Employees_WriterId",
+                        name: "FK_IssueNotes_Employees_WriterId",
                         column: x => x.WriterId,
                         principalSchema: "Public",
                         principalTable: "Employees",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Notes_Issues_IssueId",
+                        name: "FK_IssueNotes_Issues_IssueId",
                         column: x => x.IssueId,
                         principalSchema: "Public",
                         principalTable: "Issues",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IssueNotes_IssueId",
+                schema: "Public",
+                table: "IssueNotes",
+                column: "IssueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IssueNotes_WriterId",
+                schema: "Public",
+                table: "IssueNotes",
+                column: "WriterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Issues_ExecutorId",
@@ -136,24 +148,12 @@ namespace DataAccess.PgSql.Migrations
                 schema: "Public",
                 table: "Issues",
                 column: "ReporterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Notes_IssueId",
-                schema: "Public",
-                table: "Notes",
-                column: "IssueId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Notes_WriterId",
-                schema: "Public",
-                table: "Notes",
-                column: "WriterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Notes",
+                name: "IssueNotes",
                 schema: "Public");
 
             migrationBuilder.DropTable(

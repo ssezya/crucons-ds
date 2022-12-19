@@ -32,7 +32,7 @@ namespace DataAccess.PgSql.Configuration
                 .HasForeignKey(i => i.ExecutorId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasMany(e => e.WriterOfNotes)
+            builder.HasMany(e => e.WriterOfIssueNotes)
                 .WithOne(n => n.Writer)
                 .HasForeignKey(n => n.WriterId)
                 .OnDelete(DeleteBehavior.SetNull);

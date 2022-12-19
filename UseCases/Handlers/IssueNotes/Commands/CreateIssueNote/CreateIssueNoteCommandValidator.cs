@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace UseCases.Handlers.Notes.Commands.CreateNote
+namespace UseCases.Handlers.IssueNotes.Commands.CreateIssueNote
 {
-    public class CreateNoteCommandValidator : AbstractValidator<CreateNoteCommand>
+    public class CreateIssueNoteCommandValidator : AbstractValidator<CreateIssueNoteCommand>
     {
-        public CreateNoteCommandValidator()
+        public CreateIssueNoteCommandValidator()
         {
             RuleFor(p => p.IssueId)
                 .NotEmpty();
