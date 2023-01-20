@@ -43,6 +43,7 @@ namespace UseCases.Handlers.Auth.Commands.CreateAccessToken
             {
                 UserId = user.Id,
                 UserName = user.UserName,
+                FullName = employee.FullName,
                 EmployeeId = employee.Id
             });
         }

@@ -30,6 +30,8 @@ namespace Infrastructure.Implementation.Identity.Services
 
             return new TokenResponse
             {
+                UserName = request.UserName,
+                FullName = request.FullName,
                 AccessToken = accessToken
             };
         }

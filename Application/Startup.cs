@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using FluentValidation;
 using Infrastructure.Implementation;
 using DataAccess.PgSql;
@@ -27,6 +28,7 @@ namespace Application
             services.AddDataAccessPgSql(Configuration);
             services.AddUseCases();
 
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -36,6 +38,9 @@ namespace Application
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            if (env.IsDevelopment())
+                app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
