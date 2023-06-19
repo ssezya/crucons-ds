@@ -18,9 +18,6 @@ namespace UseCases.Handlers.Issues.Commands.CreateIssue
 
             RuleFor(p => p.ProjectId)
                 .NotEmpty();
-
-            RuleFor(p => p.ReporterId)
-                .NotEmpty();
         }
     }
 }

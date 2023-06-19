@@ -10,8 +10,14 @@ namespace Entities.Enums
         [Display(Name = "Open")]
         Open,
 
+        [Display(Name = "In progress")]
+        InProgress,
+
         [Display(Name = "Solved")]
         Solved,
+
+        [Display(Name = "To be tested")]
+        ToBeTested,
 
         [Display(Name = "Closed")]
         Closed
